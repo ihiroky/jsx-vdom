@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "target": "es3",
+    "module": "commonjs",
+    "jsx": "react",
+    "jsxFactory": "MyJSXDOM",
+    "outDir": "./dist/js",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["*.ts", "**/*.ts", "**/*.tsx"]
+}

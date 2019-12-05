@@ -5,3 +5,11 @@ declare namespace MyJSXVDOM.JSX {
     [name: string]: any
   }
 }
+
+interface ComponentConstructor {
+  new(props: VirtualDOM.createProperties, children: string | VirtualDOM.VChild[]): Component
+}
+
+interface Component {
+  render(): VirtualDOM.VNode
+}

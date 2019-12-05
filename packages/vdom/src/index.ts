@@ -1,7 +1,22 @@
 import { h } from 'virtual-dom'
 
-export const MyJSXVDOM = (tag: string, props: VirtualDOM.createProperties, ...children: (string | VirtualDOM.VChild)[]): VirtualDOM.VNode => {
-  console.log('tag', tag)
-  console.log('children', children)
-  return h(tag, props, children)
+function isComponentConstructor(c: any): c is ComponentConstructor {
+  return c !== null
+    && typeof c === 'function'
+    && typeof c.prototype.render === 'function'
+}
+
+export const MyJSXVDOM = (
+    tagOrCompOrFunc: string | ((props: VirtualDOM.createProperties, children: string | VirtualDOM.VChild[]) => VirtualDOM.VNode) | ComponentConstructor,
+    props: VirtualDOM.createProperties,
+    ...children: (string | VirtualDOM.VChild)[]): VirtualDOM.VNode => {
+
+  if (typeof tagOrCompOrFunc === 'string') {
+    return h(tagOrCompOrFunc, props, children)
+  } else if (isComponentConstructor(tagOrCompOrFunc)) {
+    const c = new tagOrCompOrFunc(props, children)
+    return c.render()
+  } else {
+    return tagOrCompOrFunc(props, children)
+  }
 }
